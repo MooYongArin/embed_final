@@ -1,11 +1,11 @@
 import express from "express";
-import "./netpieClient.js"; // โหลด NETPIE listener
+import "./netpieClient.js"; 
 import { latestSensorData, buffer,alerts,createAlert } from "./netpieClient.js";
 import prisma from "./lib/prisma.js";
 import cors from "cors";
 const app = express();
 app.use(cors({
-  origin: "http://localhost:3000",   // your Next.js frontend
+  origin: "http://localhost:3000",   
   methods: ["GET", "POST"],
   credentials: true
 }));

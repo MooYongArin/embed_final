@@ -63,7 +63,6 @@ export default function App() {
 
   const [history, setHistory] = useState<SensorData[]>([]);
 
-  // Simulate real-time sensor data updates
   useEffect(() => {
 
     const pull = async () => {
@@ -84,7 +83,6 @@ export default function App() {
     }
     fetchData();
     fetchAlert();
-    //just change this moc to data from fetchData
     const interval = setInterval(async () => {
       pull();
       const newValue = await fetchData();
@@ -106,23 +104,19 @@ export default function App() {
         timestamp: new Date(),
       };
 
-      // Determine status for ultrasonic sensor
       if (newData.ultrasonic.distance < 40) {
         newData.ultrasonic.status = 'danger';
         newData.ultrasonic.objectDetected = true;
       }
 
-      // Determine status for fire sensor
       if (newData.accident.infraredDetected) {
         newData.accident.status = 'danger';
       }
 
-      // Determine status for tilt sensor
       if (!newData.tilt.isStable) {
         newData.tilt.status = 'danger';
         newData.tilt.isStable = false;
       }
-      // Generate alerts for dangerous conditions
       const newAlerts: {
         id: string;
         type: 'ultrasonic' | 'accident' | 'tilt';
@@ -168,9 +162,9 @@ export default function App() {
       setHistory(prev => {
         const updated = [...prev, newData];
         if (updated.length > 20) {
-          updated.shift();       // ลบตัวแรกแทน slice
+          updated.shift();       
         }
-        return [...updated];     // คืน array ใหม่ (ไม่เป็น reference เก่า)
+        return [...updated];    
       });
     }, 2000);
 

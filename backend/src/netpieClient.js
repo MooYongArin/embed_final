@@ -29,10 +29,6 @@ client.on("connect", () => {
     client.subscribe("@msg/sensor");
 });
 
-// client.on('offline', ()=>{
-//     console.log('MQTT disconnected')
-// })
-
 client.on('disconnect', ()=>{
     console.log('MQTT was told to disconnect')
 })
@@ -44,7 +40,7 @@ client.on("message", async (topic, message) => {
     if (buffer.length > 50) buffer.shift();
     try {
         const obj = {};
-        const pairs = raw.split(";").filter(Boolean); // ["U:165.66", "V:1", "R:0"]
+        const pairs = raw.split(";").filter(Boolean);
         pairs.forEach((pair) => {
             const [key, val] = pair.split(":");
             if (!key || val === undefined) return;
